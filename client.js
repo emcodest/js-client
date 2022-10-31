@@ -5,6 +5,7 @@ const methods = {}
  * Uses JQUERY 
  * <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
  */
+
 methods.Error = function(title, message){
     Swal.fire({
         icon: 'error',
@@ -80,5 +81,62 @@ methods.CloseModal = function(title, body){
     $("#modal-1-content").html("")
     MicroModal.show('modal-1');
 }
+
+//: LISTEN TO EVENTS
+
+$(document).on("click", ".click", function (ex) {
+    var t = $(this).attr("func"),
+        e = $(this).attr("params"),
+        o = methods[t];
+    "function" == typeof o ? o.apply(null, [e, $(this), ex]) : alert("Not Implemented")
+});
+$(document).on("change", ".change", function (ex) {
+    //alert(dashboard_x)
+    var func = $(this).attr("func")
+    var params = $(this).attr("params")
+    //var fn = window[func]
+    var fn = methods[func]
+    if (typeof fn != "function") {
+        alert("Not Implemented")
+        return
+    }
+    fn.apply(null, [params, $(this), ex])
+
+})
+$(document).on("keypress", ".enter", function(e) {
+   
+    if(e.which == 13) {
+        var func = $(this).attr("func")
+        var params = $(this).attr("params")
+        //var fn = window[func]
+        var fn = methods[func]
+        if (typeof fn != "function") {
+            alert("Not Implemented")
+            return
+        }
+        fn.apply(null, [params, $(this), e])
+    }
+});
+$(document).on("keyup", ".number", function(e) {
+   
+     
+       let aval =  $(this).val().replace(/[^0-9]/gi,'');
+      
+       $(this).val(aval)
+    
+});
+$(document).on("keyup", ".keypress", function(e) {
+   
+    var func = $(this).attr("func")
+    var params = $(this).attr("params")
+    //var fn = window[func]
+    var fn = methods[func]
+    if (typeof fn != "function") {
+        alert("Not Implemented")
+        return
+    }
+    fn.apply(null, [params, $(this), e])
+    
+});
 
 
