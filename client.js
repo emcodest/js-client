@@ -1,3 +1,4 @@
+<script>
 const methods = {}
 /**
  * include this script at the end of the body tag for the methods.Error and Success to work
@@ -79,3 +80,5 @@ methods.CloseModal = function(title, body){
     $("#modal-1-content").html("")
     MicroModal.show('modal-1');
 }
+
+</script>
